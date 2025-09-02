@@ -12,21 +12,37 @@
         var today = new Date();
         var h = today.getHours();
         var m = today.getMinutes();
-        var s = today.getSeconds();
+        
         m = checkTime(m);
-        s = checkTime(s);
+        
         document.getElementById('txt').innerHTML =
-        h + ":" + m + ":" + s;
+        h + ":" + m;
+        if(h>6 && h<12){
+            document.getElementById('set').innerHTML =
+            "morning";
+        }
+        if(h>12 && h<18){
+            document.getElementById('set').innerHTML =
+            "day";
+        }
+        if(h>18 && h<24){
+            document.getElementById('set').innerHTML =
+            "day";
+        }
+        if(h>0 && h<6){
+            document.getElementById('set').innerHTML =
+            "day";
+        }
+
         var t = setTimeout(startTime, 500);
         }
         function checkTime(i) {
             if (i < 10) {i = "0" + i};
             return i;
         }
-        if(){
-
-        }
+        
     </script>
+
     <?php
         $data = file_get_contents("https://emo.lv/weather-api/forecast/?city=cesis,latvia");
         $weatherData = json_decode($data, true);
@@ -34,10 +50,11 @@
 
     <p>Pilsēta: <?php echo $weatherData['city']['name']; ?></p>
     <p>Current Weather</p>
-    <p> <?php echo $weatherData['city']['name']; ?></p>
     <p type="datetime-local"></p>
 
     
      <div id="txt"></div>
+     <div id="set"></div>
+     <div id="air-quality"></div>
 </body>
 </html>
